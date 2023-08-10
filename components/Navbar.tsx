@@ -1,14 +1,13 @@
 import React from "react";
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <nav className=" sticky top-0 z-50 bg-white border-gray-200 px-2 sm:px-4 py-6 ">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
-
-          <span className="flex items-center self-center text-2xl font-semibold whitespace-nowrap text-red-400">
-            YoutubeWatch 
-          </span>
+        <span className="flex items-center self-center text-2xl font-semibold whitespace-nowrap text-red-400">
+          YoutubeWatch
+        </span>
         <button
           data-collapse-toggle="navbar-default"
           type="button"
@@ -33,41 +32,21 @@ export default function Navbar() {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-            <li                 className="block py-2 pr-4 pl-4 text-xl text-gray-700 hover:text-gray-50 md:hover:bg-transparent hover:text-gray-500"
->
-              <Link
-                href="/"
-              aria-current="page"
-              >
+            <li className="block py-2 pr-4 pl-4 text-xl text-gray-700  md:hover:bg-transparent hover:text-gray-500">
+              <Link href="/" aria-current="page">
                 Home
               </Link>
             </li>
-            <li                 className="block py-2 pr-4 pl-4 text-xl text-gray-700 hover:text-gray-50 md:hover:bg-transparent hover:text-gray-500"
->
-              <Link
-                href="/#terminology"
-              aria-current="page"
-              >
+            <li className="block py-2 pr-4 pl-4 text-xl text-gray-700  md:hover:bg-transparent hover:text-gray-500">
+              <Link href="/#terminology" aria-current="page">
                 Terminology
               </Link>
             </li>
-            <li                 className="block py-2 pr-4 pl-4 text-xl text-gray-700 hover:text-gray-50 md:hover:bg-transparent hover:text-gray-500"
->
-              <Link
-                href="/dashboard"
-              >
-                Dashboard 
-              </Link>
-
+            <li className="block py-2 pr-4 pl-4 text-xl text-gray-700  md:hover:bg-transparent hover:text-gray-500">
+              <Link href="/dashboard">Dashboard</Link>
             </li>
-            <li                 className="block py-2 pr-4 pl-4 text-xl text-gray-700 hover:text-gray-50 md:hover:bg-transparent hover:text-gray-500"
->
-              <Link
-                href="/random"
-              >
-                Random 
-              </Link>
-
+            <li className="block py-2 pr-4 pl-4 text-xl text-gray-700  md:hover:bg-transparent hover:text-gray-500">
+              <Link href="/algorithm">Algorithm Analysis</Link>
             </li>
           </ul>
         </div>

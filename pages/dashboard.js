@@ -1,88 +1,87 @@
-import 'regenerator-runtime/runtime';
-import React, { useMemo, useState, useEffect } from 'react'
-import Head from 'next/head'
+import "regenerator-runtime/runtime";
+import React, { useMemo, useState, useEffect } from "react";
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
-import Table, {SelectColumnFilter, StatusPill} from '../components/Table'  // new
-import { useTable } from 'react-table'
-import channeldata from '../components/channel.json'
+import Table, { SelectColumnFilter, StatusPill } from "../components/Table"; // new
+import { useTable } from "react-table";
+import channeldata from "../components/channel.json";
 
-const YOUTUBE_PLAYLIST_ITEMS_API = 'https://www.googleapis.com/youtube/v3/videos'
+const YOUTUBE_PLAYLIST_ITEMS_API =
+  "https://www.googleapis.com/youtube/v3/videos";
 
 export async function getServerSideProps() {
-  const res = await fetch(`${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&key=${process.env.YOUTUBE_API_KEY}`);
+  const res = await fetch(
+    `${YOUTUBE_PLAYLIST_ITEMS_API}?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&key=${process.env.YOUTUBE_API_KEY}`
+  );
   const data1 = await res.json();
   const data = data1.items;
   return {
     props: {
-      data
-    }
-  }
+      data,
+    },
+  };
 }
 
-export default function Dashboard({data}) {
-    // console.log(data)
-    const columnss = [
-      {
-        Header: "Video Title",
-        accessor: "snippet.title",
-      },
-      {
-        Header: "View Count",
-        accessor: "statistics.viewCount",
-      },
-      {
-        Header: "Like Count",
-        accessor: "statistics.likeCount",
-      },
-      {
-        Header: "Comment Count",
-        accessor: "statistics.commentCount",
-      },
-      {
-        Header: "Category",
-        accessor: "snippet.categoryId",
-        Filter: SelectColumnFilter,  // new
-        filter: 'includes',
-        Cell: StatusPill,
+export default function Dashboard({ data }) {
+  // console.log(data)
+  const columnss = [
+    {
+      Header: "Video Title",
+      accessor: "snippet.title",
+    },
+    {
+      Header: "View Count",
+      accessor: "statistics.viewCount",
+    },
+    {
+      Header: "Like Count",
+      accessor: "statistics.likeCount",
+    },
+    {
+      Header: "Comment Count",
+      accessor: "statistics.commentCount",
+    },
+    {
+      Header: "Category",
+      accessor: "snippet.categoryId",
+      Filter: SelectColumnFilter, // new
+      filter: "includes",
+      Cell: StatusPill,
+    },
+  ];
 
-      },
-      
-    ]
-
-    const channelcolumnss = [
-      {
-        Header: "Rank",
-        accessor: "rank",
-      },
-      {
-        Header: "Channel",
-        accessor: "youtuber",
-      },
-      {
-        Header: "Subscribers",
-        accessor: "subscribers",
-      },
-      {
-        Header: "Video Views",
-        accessor: "video views",
-      },
-      {
-        Header: "Video Count",
-        accessor: "video count",
-      },
-      {
-        Header: "Year Started",
-        accessor: "started",
-      },
-      {
-        Header: "Category",
-        accessor: "category",
-
-      },
-
-    ]
+  const channelcolumnss = [
+    {
+      Header: "Rank",
+      accessor: "rank",
+    },
+    {
+      Header: "Channel",
+      accessor: "youtuber",
+    },
+    {
+      Header: "Subscribers",
+      accessor: "subscribers",
+    },
+    {
+      Header: "Video Views",
+      accessor: "video views",
+    },
+    {
+      Header: "Video Count",
+      accessor: "video count",
+    },
+    {
+      Header: "Year Started",
+      accessor: "started",
+    },
+    {
+      Header: "Category",
+      accessor: "category",
+    },
+  ];
 
   // return (
   //   <div>
@@ -179,17 +178,16 @@ export default function Dashboard({data}) {
   //     </div>
   //   </div>
 
-
   //       </div>
 
   //       <Footer/>
   //       </div>
   // )
 
-  const columns = useMemo(() => columnss, [])
-  const datas = useMemo(() => data, [])
-  const columns2 = useMemo(() => channelcolumnss, [])
-  const datas2 = useMemo(() => channeldata, [])
+  const columns = useMemo(() => columnss, []);
+  const datas = useMemo(() => data, []);
+  const columns2 = useMemo(() => channelcolumnss, []);
+  const datas2 = useMemo(() => channeldata, []);
 
   // const tableInstance = useTable({
   //   columns,
@@ -204,56 +202,57 @@ export default function Dashboard({data}) {
   // } = tableInstance;
 
   return (
-   //set the table to the tableInstance
-//    <table className="table table-striped table-sm">
-//    <thead>
-//      {headerGroups.map((headerGroup) => (
-//        <tr {...headerGroup.getHeaderGroupProps()}>
-//          {headerGroup.headers.map((column) => (
-//            <th {...column.getHeaderProps()} scope="col">
-//              {column.render("Header")}
-//            </th>
-//          ))}
-//        </tr>
-//      ))}
-//    </thead>
-//    <tbody {...getTableBodyProps()}>
-//      {rows.map((row) => {
-//        prepareRow(row);
-//        return (
-//          <tr {...row.getRowProps()}>
-//            {row.cells.map((cell) => {
-//              return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-//            })}
-//          </tr>
-//        );
-//      })}
-//    </tbody>
-//  </table>
-<div >
-<Navbar />
-<div className="container">
-<div className="">
-<main className="mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-  <div className="mt-6">
-    <h1 className="text-xl mb-4 text-gray-600 font-semibold">Widely Viewed Videos</h1>
-    <Table columns={columns} data={datas} />
-  </div>
-</main>
-</div>
-<div className="mb-8">
-<main className="mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-  <div className="mt-6">
-  
-  <h1 className="text-xl mb-4 text-gray-600 font-semibold">Widely Viewed Channels</h1>
-    <Table columns={columns2} data={datas2} />
-  </div>
-</main>
-</div>
-</div>
-<Footer />
-</div>
-
-  )
+    //set the table to the tableInstance
+    //    <table className="table table-striped table-sm">
+    //    <thead>
+    //      {headerGroups.map((headerGroup) => (
+    //        <tr {...headerGroup.getHeaderGroupProps()}>
+    //          {headerGroup.headers.map((column) => (
+    //            <th {...column.getHeaderProps()} scope="col">
+    //              {column.render("Header")}
+    //            </th>
+    //          ))}
+    //        </tr>
+    //      ))}
+    //    </thead>
+    //    <tbody {...getTableBodyProps()}>
+    //      {rows.map((row) => {
+    //        prepareRow(row);
+    //        return (
+    //          <tr {...row.getRowProps()}>
+    //            {row.cells.map((cell) => {
+    //              return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+    //            })}
+    //          </tr>
+    //        );
+    //      })}
+    //    </tbody>
+    //  </table>
+    <div>
+      <Navbar />
+      <div className="container">
+        <div className="">
+          <main className="mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+            <div className="mt-6">
+              <h1 className="text-xl mb-4 text-gray-600 font-semibold">
+                Widely Viewed Videos
+              </h1>
+              <Table columns={columns} data={datas} />
+            </div>
+          </main>
+        </div>
+        <div className="mb-8">
+          <main className="mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+            <div className="mt-6">
+              <h1 className="text-xl mb-4 text-gray-600 font-semibold">
+                Widely Viewed Channels
+              </h1>
+              <Table columns={columns2} data={datas2} />
+            </div>
+          </main>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 }
-
